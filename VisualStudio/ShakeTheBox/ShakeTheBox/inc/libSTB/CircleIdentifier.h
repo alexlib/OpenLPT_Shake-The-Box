@@ -30,7 +30,7 @@ class CircleIdentifier
  public:
   CircleIdentifier(int**& p, int rows, int cols, int threshold);
   ~CircleIdentifier();
-  void BubbleCenterAndSizeByCircle(double rmin, double rmax);
+  void BubbleCenterAndSizeByCircle(double rmin, double rmax, double sensitivity);
   Frame CreateFrame();
 
 private:

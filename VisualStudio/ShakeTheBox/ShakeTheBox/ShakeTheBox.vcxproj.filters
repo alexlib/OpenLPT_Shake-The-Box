@@ -37,6 +37,15 @@
     <Filter Include="Header Files\libSTB\BubbleCenterAndSize">
       <UniqueIdentifier>{a1aacbb2-ce80-4d9c-a831-b4785bff8138}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\libSTB\BubbleCenterAndSizeByCircle">
+      <UniqueIdentifier>{0a1a75f2-6f09-471c-a5e0-9b94b43428c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\srcSTB\BubbleCenterAndSizeByCircle">
+      <UniqueIdentifier>{1bfe9bff-6376-4fc4-a0dc-8805207f054b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\srcSTB\BubbleCenterAndSize">
+      <UniqueIdentifier>{5952c5f0-4638-42ea-bbb3-8a24bcf549bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="inc\libtiff\tif_aux.c">
@@ -228,11 +237,89 @@
     <ClCompile Include="src\srcSTB\BubbleIdentifier.cpp">
       <Filter>Source Files\srcSTB</Filter>
     </ClCompile>
-    <ClCompile Include="src\srcSTB\bwconncomp.cpp">
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\BubbleCenterAndSizeByCircle_data.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\BubbleCenterAndSizeByCircle_rtwutil.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\Cbwconncomp.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\chaccum.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\chcenters.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\chradii.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\colon.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\conv2AXPY.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\find.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\imfilter.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\imhist.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\imhmax.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\medfilt2.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\minOrMax.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\multithresh.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\NeighborhoodProcessor.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\nullAssignment.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\Cregionprops.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\relop.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\rt_nonfinite.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\rtGetInf.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\rtGetNaN.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\sort.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\sortIdx.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\unique.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\CircleIdentifier.cpp">
       <Filter>Source Files\srcSTB</Filter>
     </ClCompile>
-    <ClCompile Include="src\srcSTB\regionprops.cpp">
-      <Filter>Source Files\srcSTB</Filter>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSize\bwconncomp.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSize</Filter>
+    </ClCompile>
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSize\regionprops.cpp">
+      <Filter>Source Files\srcSTB\BubbleCenterAndSize</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -376,6 +463,96 @@
     </ClInclude>
     <ClInclude Include="inc\libSTB\BubbleCenterAndSize\rtwtypes.h">
       <Filter>Header Files\libSTB\BubbleCenterAndSize</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\CircleIdentifier.h">
+      <Filter>Header Files\libSTB</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\BubbleCenterAndSizeByCircle_data.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\BubbleCenterAndSizeByCircle_rtwutil.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\BubbleCenterAndSizeByCircle_types.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\Cbwconncomp.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\chaccum.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\chcenters.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\chradii.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\coder_array.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\colon.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\conv2AXPY.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\find.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\imfilter.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\imhist.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\imhmax.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\medfilt2.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\minOrMax.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\multithresh.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\NeighborhoodProcessor.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\nullAssignment.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\Cregionprops.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\relop.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\rt_defines.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\rt_nonfinite.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\rtGetInf.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\rtGetNaN.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\rtwtypes.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\sort.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\sortIdx.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\unique.h">
+      <Filter>Header Files\libSTB\BubbleCenterAndSizeByCircle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

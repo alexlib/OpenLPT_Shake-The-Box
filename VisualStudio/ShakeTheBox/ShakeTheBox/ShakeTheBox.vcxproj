@@ -117,7 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\inc\libtiff;$(ProjectDir)\inc\libSTB;$(ProjectDir)\inc\libMath;$(ProjectDir)\inc\DataIO;$(ProjectDir)\inc\libSTB\BubbleCenterAndSize</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\inc\libtiff;$(ProjectDir)\inc\libSTB;$(ProjectDir)\inc\libMath;$(ProjectDir)\inc\DataIO;$(ProjectDir)\inc\libSTB\BubbleCenterAndSize;$(ProjectDir)\inc\libSTB\BubbleCenterAndSizeByCircle</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
     </ClCompile>
@@ -134,7 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\inc\libtiff;$(ProjectDir)\inc\libSTB;$(ProjectDir)\inc\libMath;$(ProjectDir)\inc\DataIO;$(ProjectDir)\inc\libSTB\BubbleCenterAndSize</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\inc\libtiff;$(ProjectDir)\inc\libSTB;$(ProjectDir)\inc\libMath;$(ProjectDir)\inc\DataIO;$(ProjectDir)\inc\libSTB\BubbleCenterAndSize;$(ProjectDir)\inc\libSTB\BubbleCenterAndSizeByCircle</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
@@ -192,10 +192,37 @@
     <ClCompile Include="src\srcMath\Matrix.cpp" />
     <ClCompile Include="src\srcSTB\BackSTB.cpp" />
     <ClCompile Include="src\srcSTB\BoundaryCheck.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\BubbleCenterAndSizeByCircle_data.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\BubbleCenterAndSizeByCircle_rtwutil.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\Cbwconncomp.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\chaccum.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\chcenters.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\chradii.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\colon.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\conv2AXPY.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\find.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\imfilter.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\imhist.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\imhmax.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\medfilt2.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\minOrMax.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\multithresh.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\NeighborhoodProcessor.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\nullAssignment.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\Cregionprops.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\relop.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\rtGetInf.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\rtGetNaN.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\rt_nonfinite.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\sort.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\sortIdx.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSizeByCircle\unique.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSize\bwconncomp.cpp" />
+    <ClCompile Include="src\srcSTB\BubbleCenterAndSize\regionprops.cpp" />
     <ClCompile Include="src\srcSTB\BubbleIdentifier.cpp" />
-    <ClCompile Include="src\srcSTB\bwconncomp.cpp" />
     <ClCompile Include="src\srcSTB\Calibration.cpp" />
     <ClCompile Include="src\srcSTB\Camera.cpp" />
+    <ClCompile Include="src\srcSTB\CircleIdentifier.cpp" />
     <ClCompile Include="src\srcSTB\ForwardSTB.cpp" />
     <ClCompile Include="src\srcSTB\Frame.cpp" />
     <ClCompile Include="src\srcSTB\Image.cpp" />
@@ -204,7 +231,6 @@
     <ClCompile Include="src\srcSTB\ParticleFinder.cpp" />
     <ClCompile Include="src\srcSTB\Position.cpp" />
     <ClCompile Include="src\srcSTB\PredictiveField.cpp" />
-    <ClCompile Include="src\srcSTB\regionprops.cpp" />
     <ClCompile Include="src\srcSTB\Shaking.cpp" />
     <ClCompile Include="src\srcSTB\STB.cpp" />
     <ClCompile Include="src\srcSTB\Tiff2DFinder.cpp" />
@@ -222,6 +248,35 @@
     <ClInclude Include="inc\libMath\MergeSort.h" />
     <ClInclude Include="inc\libSTB\BackSTB.h" />
     <ClInclude Include="inc\libSTB\BoundaryCheck.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\BubbleCenterAndSizeByCircle_data.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\BubbleCenterAndSizeByCircle_rtwutil.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\BubbleCenterAndSizeByCircle_types.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\Cbwconncomp.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\chaccum.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\chcenters.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\chradii.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\coder_array.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\colon.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\conv2AXPY.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\find.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\imfilter.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\imhist.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\imhmax.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\medfilt2.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\minOrMax.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\multithresh.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\NeighborhoodProcessor.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\nullAssignment.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\Cregionprops.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\relop.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\rtGetInf.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\rtGetNaN.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\rtwtypes.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\rt_defines.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\rt_nonfinite.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\sort.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\sortIdx.h" />
+    <ClInclude Include="inc\libSTB\BubbleCenterAndSizeByCircle\unique.h" />
     <ClInclude Include="inc\libSTB\BubbleCenterAndSize\BubbleCenterAndSize.h" />
     <ClInclude Include="inc\libSTB\BubbleCenterAndSize\BubbleCenterAndSize_types.h" />
     <ClInclude Include="inc\libSTB\BubbleCenterAndSize\bwconncomp.h" />
@@ -231,6 +286,7 @@
     <ClInclude Include="inc\libSTB\BubbleIdentifier.h" />
     <ClInclude Include="inc\libSTB\Calibration.h" />
     <ClInclude Include="inc\libSTB\Camera.h" />
+    <ClInclude Include="inc\libSTB\CircleIdentifier.h" />
     <ClInclude Include="inc\libSTB\STBCommon.h" />
     <ClInclude Include="inc\libSTB\ForwardSTB.h" />
     <ClInclude Include="inc\libSTB\Frame.h" />

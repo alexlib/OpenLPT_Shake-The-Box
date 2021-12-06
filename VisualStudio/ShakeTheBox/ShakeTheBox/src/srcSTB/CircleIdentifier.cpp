@@ -19,7 +19,7 @@
 #include "Frame.h"
 
 // Function Definitions
-void CircleIdentifier::BubbleCenterAndSizeByCircle(double rmin, double rmax)
+void CircleIdentifier::BubbleCenterAndSizeByCircle(double rmin, double rmax, double sensitivity)
 {
   coder::array<double, 2U> centers;
   coder::array<double, 2U> radii;
@@ -78,7 +78,7 @@ void CircleIdentifier::BubbleCenterAndSizeByCircle(double rmin, double rmax)
       x.set_size(metric.size(0), metric.size(1));
       nx = metric.size(0) * metric.size(1);
       for (ii = 0; ii < nx; ii++) {
-        x[ii] = (metric[ii] >= 0.050000000000000044);
+        x[ii] = (metric[ii] >= 1.0 - sensitivity);
       }
 
       nx = x.size(0) * x.size(1);

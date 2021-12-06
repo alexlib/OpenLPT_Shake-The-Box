@@ -1146,9 +1146,16 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 		
 	avgInt = avgIntTemp;
 	avgIntTemp = avgIntTemp / int3D.size();
+	
+	double sigmaInt = 0;
+	for (int i = 0; i < int3D.size(); i ++) 
+		if (int3D[i] > 0)
+			sigmaInt = sigmaInt + pow(int3D[i] - avgIntTemp, 2);
+
+	sigmaInt = pow(sigmaInt / int3D.size(), 0.5);
 
 	for (int i = 0; i < int3D.size(); i++)												// removing the outliers (very bright particles and very dull particles for mean)
-		if (int3D[i] > 30*avgIntTemp) {
+		if (int3D[i] > 3 * sigmaInt + avgIntTemp) { //> 30*avgIntTemp) {
 			avgInt = avgInt - int3D[i];
 			count++;
 		}
