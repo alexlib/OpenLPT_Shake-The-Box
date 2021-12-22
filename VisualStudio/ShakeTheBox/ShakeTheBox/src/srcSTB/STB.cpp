@@ -1051,7 +1051,7 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 			else if (loopInner < 5)  del = config.shaking_shift / pow(2,loopInner - 1);
 			else  del = config.shaking_shift / 20;
 
-			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 2, STBflag); // projection size: particle size, projection range: twice particle size
+			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 1, STBflag); // projection size: particle size, projection range: twice particle size
 //			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 0.5);					// adding the estimated particles to the reprojected image
 
 			for (int n = 0; n < ncams; n++) 												// updating the residual image by removing the estimates

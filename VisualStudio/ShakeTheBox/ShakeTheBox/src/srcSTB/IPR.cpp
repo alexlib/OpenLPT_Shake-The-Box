@@ -628,7 +628,7 @@ void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_repro
 
 			// *Reporjecting* //
 			// pixel range for each particle
-			size = (*pID).R() * size_factor * 4; // set the size of projection to 4 times the radius of the particle.
+			size = (*pID).R() * size_factor * 3; // set the size of projection to 4 times the radius of the particle.
 			int xmin = max(1, (int)floor(particle2Dcenters[n].X() - size / 2));
 			int ymin = max(1, (int)floor(particle2Dcenters[n].Y() - size / 2));
 			int xmax = min(Npixw, (int)floor(particle2Dcenters[n].X() + size / 2));

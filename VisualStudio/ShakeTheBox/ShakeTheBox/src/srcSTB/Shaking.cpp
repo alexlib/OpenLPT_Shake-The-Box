@@ -362,7 +362,7 @@ void Shaking::Int() {
 	}
 
 	// updating particle intensity (ignoring the camera with highest local peak intensity)
-	double ignore = IndexofLargestElement(peakIntensity, rcams);
+	double ignore = IndexofLargestElement(peakIntensity, rcams); // TODO: check whether it works for bubble tracking
 //	double ratio = 255;
 //	int nonzero_proj = 0;
 	for (int ID = 0; ID < rcams; ID++) {
