@@ -9,8 +9,8 @@
 //
 
 
-#ifndef BWCONNCOMP_H
-#define BWCONNCOMP_H
+#ifndef BBWCONNCOMP_H
+#define BBWCONNCOMP_H
 
 // Include files
 #include <cstddef>
@@ -19,7 +19,7 @@
 #include "BubbleCenterAndSize_types.h"
 
 // Function Declarations
-extern void bwconncomp(const coder::array<bool, 2U>& varargin_1, double
+extern void Bbwconncomp(const coder::array<bool, 2U>& varargin_1, double
 	* CC_Connectivity, double CC_ImageSize[2], double* CC_NumObjects, coder::array<
 	double, 1U>& CC_RegionIndices, coder::array<int, 1U>& CC_RegionLengths);
 

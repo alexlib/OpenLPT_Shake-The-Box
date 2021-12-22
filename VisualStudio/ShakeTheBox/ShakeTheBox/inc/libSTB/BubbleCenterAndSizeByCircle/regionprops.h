@@ -3,13 +3,13 @@
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
 //
-// unique.h
+// regionprops.h
 //
-// Code generation for function 'unique'
+// Code generation for function 'regionprops'
 //
 
-#ifndef UNIQUE_H
-#define UNIQUE_H
+#ifndef REGIONPROPS_H
+#define REGIONPROPS_H
 
 // Include files
 #include "rtwtypes.h"
@@ -18,12 +18,16 @@
 #include <cstddef>
 #include <cstdlib>
 
+// Type Declarations
+struct struct_T;
+
 // Function Declarations
 namespace coder {
-void unique_vector(const ::coder::array<float, 1U> &a,
-                   ::coder::array<float, 1U> &b);
+void regionprops(const ::coder::array<bool, 2U> &varargin_1,
+                 const ::coder::array<double, 2U> &varargin_2,
+                 ::coder::array<struct_T, 1U> &outstats);
 
 }
 
 #endif
-// End of code generation (unique.h)
+// End of code generation (regionprops.h)

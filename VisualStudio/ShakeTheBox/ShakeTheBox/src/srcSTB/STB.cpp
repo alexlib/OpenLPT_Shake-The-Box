@@ -236,7 +236,7 @@ void STB::ConvergencePhase() {
 			// initializing some variables
 			int c1 = activeShortTracks.size(), c2 = activeLongTracks.size(), c3 = inactiveTracks.size(), c4 = inactiveLongTracks.size();
 			a_as = 0; a_al = 0; a_is = 0; s_as1 = 0; s_as2 = 0; s_as3 = 0; s_as4 = 0; s_al = 0; a_il = 0;
-
+			r_obl = 0; r_ct = 0; r_int = 0; r_2cam = 0; r_lf = 0;
 //			for (int i = 0; i < 100; ++i) {
 //					linear_fit_error[i] = 0;
 //				}
@@ -411,7 +411,7 @@ void STB::ConvergencePhase() {
 	// PRUNING / ARRANGING THE TRACKS
 			double thresh = 1.5 * largestShift;
 //			int p = 0;
-			int r1 =0, r2 = 0, r3 = 0, r4 = 0;
+			//int r1 =0, r2 = 0, r3 = 0, r4 = 0;
 			unsigned int num_longtrack = activeLongTracks.size();
 			erase_vector  = new bool[num_longtrack];
 			for (unsigned int i = 0; i < num_longtrack; ++i) erase_vector[i] = false;
@@ -474,7 +474,7 @@ void STB::ConvergencePhase() {
 //					++ r1;
 //				}
 				 if (!CheckLinearFit(activeLongTracks[i])) {
-					++ r3;
+					//++ r3;
 					erase_vector[i] = true;
 				}
 			}
@@ -485,13 +485,16 @@ void STB::ConvergencePhase() {
 				deque<Track>::iterator tr = activeLongTracks.begin();
 				if (erase_vector[i]) {
 					if (activeLongTracks[i - shift].Length() >= 7) {
-						inactiveLongTracks.push_back(activeLongTracks[i]);
+						//inactiveLongTracks.push_back(activeLongTracks[i]);
+						inactiveLongTracks.push_back(activeLongTracks[i - shift]);
 						activeLongTracks.erase(tr + i - shift);
-						s_al++; a_il++;
+						//s_al++; a_il++;
+						s_al++; a_il++; r_lf++;
 						++ shift;
 					} else {
 						activeLongTracks.erase(tr + i - shift);
-						s_al++; a_is++;
+						//s_al++; a_is++;
+						s_al++; a_is++; r_lf++;
 						++ shift;
 					}
 				}
@@ -585,7 +588,8 @@ void STB::ConvergencePhase() {
 
 			cout << "\t\tNo. of active Short tracks:	" << c1 << " + " << a_as << " - (" << s_as1 << " + " << s_as2 << " + " << s_as3 << " + " << s_as4 << ") = " << activeShortTracks.size() << endl;
 			cout << "\t\tNo. of active Long tracks:	" << c2 << " + " << a_al << " - " << s_al << " = " << activeLongTracks.size() << endl;
-			cout << r1 << "+" << r2 << "+" << r3 << endl;
+			//cout << r1 << "+" << r2 << "+" << r3 << endl;
+			cout << "\t\ttracks removed due to Out of boundary, repeating, ghost particle, few camera capture and failing linear check :" << r_obl << "+" << r_ct << "+" << r_int << "+" << r_2cam << "+" << r_lf << endl;
 			cout << "\t\tNo. of exited tracks:		 = " << exitTracks.size() << endl;
 //			cout << "\t\tNo. of inactive tracks:		" << c3 << " + " << a_is << " = " << inactiveTracks.size() << endl;
 			cout << "\t\tNo. of inactive Long tracks:	" << c4 << " + " << a_il << " = " << inactiveLongTracks.size() << endl;
@@ -860,6 +864,7 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 		} else { //the track should be put into exit tracks since it is outside the boundary
 			exitTracks.push_back(*tr);
 			tr = activeLongTracks.erase(tr);
+			r_obl++;
 			s_al ++;
 		}
 		//End
@@ -1046,7 +1051,7 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 			else if (loopInner < 5)  del = config.shaking_shift / pow(2,loopInner - 1);
 			else  del = config.shaking_shift / 20;
 
-			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 4, STBflag); // projection size: particle size, projection range: twice particle size
+			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 2, STBflag); // projection size: particle size, projection range: twice particle size
 //			_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 0.5);					// adding the estimated particles to the reprojected image
 
 			for (int n = 0; n < ncams; n++) 												// updating the residual image by removing the estimates
@@ -1099,7 +1104,7 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 
 		Rem(estimate, intensity, _ipr.mindist_3D);											// removing ambiguous particles and particles that did not find a match on the actual images
 
-		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 8, STBflag);						// updating the reprojected image
+		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 1.5, STBflag);						// updating the reprojected image
 																					// remove particle by projecting twice particle size
 //		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 1.5);
 
@@ -1127,10 +1132,12 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 				if (activeLongTracks.at(j).Length() >= 7) {
 					inactiveLongTracks.push_back(activeLongTracks.at(j));
 					activeLongTracks.erase(activeLongTracks.begin() + j);
-					s_al++; a_il++;
+					//s_al++; a_il++;
+					s_al++; a_il++; r_ct++;
 				} else {
 					activeLongTracks.erase(activeLongTracks.begin() + j);
-					s_al++; a_is++;
+					//s_al++; a_is++;
+					s_al++; a_il++; r_ct++;
 				}
 			}
 			else
@@ -1176,6 +1183,7 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 			}
 			activeLongTracks.erase(activeLongTracks.begin() + index);
 			 s_al++;
+			 r_int++;
 			ghost++;
 		}
 	}
@@ -1231,7 +1239,8 @@ deque<int> STB::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 //				a_is++;
 //			}
 			
-			activeLongTracks.erase(activeLongTracks.begin() + i); s_al++;
+			//activeLongTracks.erase(activeLongTracks.begin() + i); s_al++;
+			activeLongTracks.erase(activeLongTracks.begin() + i); s_al++; r_2cam++;
 			ignoreCam[i] = 100;
 		}
 		// TODO
@@ -2269,4 +2278,5 @@ void STB::LoadTrackFromTXT(string path, TrackType trackType) {
 			}
 		}
 	}
+	delete[] track_data;
 }

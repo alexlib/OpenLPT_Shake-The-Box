@@ -7,7 +7,6 @@
 #include <Tiffload.h>
 #include <Tiff2DFinder.h>
 #include <ParticleFinder.h>
-#include "BubbleIdentifier.h"
 
 using namespace std;
 

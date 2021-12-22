@@ -10,7 +10,7 @@
 
 
 // Include files
-#include "regionprops.h"
+#include "Bregionprops.h"
 #include "BubbleIdentifier.h"
 #include <cmath>
 
@@ -108,7 +108,7 @@ static int div_s32(int numerator, int denominator)
     return quotient;
 }
 
-void ComputeCentroid(const double imageSize[2], coder::array<b_struct_T, 1U>
+void BComputeCentroid(const double imageSize[2], coder::array<b_struct_T, 1U>
     & stats, struct_T* statsAlreadyComputed)
 {
     double y_idx_0;
@@ -147,7 +147,7 @@ void ComputeCentroid(const double imageSize[2], coder::array<b_struct_T, 1U>
     }
 }
 
-void ComputeEllipseParams(const double imageSize[2], coder::array<b_struct_T, 1U>
+void BComputeEllipseParams(const double imageSize[2], coder::array<b_struct_T, 1U>
     & stats, struct_T* statsAlreadyComputed)
 {
     double den;
@@ -164,7 +164,7 @@ void ComputeEllipseParams(const double imageSize[2], coder::array<b_struct_T, 1U
         statsAlreadyComputed->Eccentricity = true;
         statsAlreadyComputed->Orientation = true;
         ComputePixelList(imageSize, stats, statsAlreadyComputed);
-        ComputeCentroid(imageSize, stats, statsAlreadyComputed);
+        BComputeCentroid(imageSize, stats, statsAlreadyComputed);
         i = stats.size(0);
         for (int k = 0; k < i; k++) {
             if (stats[k].PixelList.size(0) == 0) {

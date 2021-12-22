@@ -10,7 +10,7 @@
 
 #include "IPR.h"
 #include "STBCommon.h"
-#include "BubbleIdentifier.h"
+
 #include "CircleIdentifier.h"
 
 using namespace std;
@@ -167,8 +167,8 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 				//BubbleIdentifier bp(pixels_orig[camID], Npixh, Npixw, 100); //threshold
 				//bp.BubbleCenterAndSize();
 				//iframes.push_back(bp.CreateFrame());
-				CircleIdentifier bp(pixels_orig[camID], Npixh, Npixw, 100);
-				bp.BubbleCenterAndSizeByCircle(3, 30, .85);
+				CircleIdentifier bp(pixels_orig[camID], Npixh, Npixw);
+				bp.BubbleCenterAndSizeByCircle(5, 30, .85);
 				iframes.push_back(bp.CreateFrame());
 				//bp.SaveCenter(imgNames[camID][frame - 1]);
 				//bp.SaveRadius(imgNames[camID][frame - 1]);
@@ -330,10 +330,27 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 				//BubbleIdentifier bp(orig[camNums[camID]], Npixh, Npixw, 100); // threshold);
 				//bp.BubbleCenterAndSize();
 				//iframes.push_back(bp.CreateFrame());
+
+				//NumDataIO<int> image_output;
+				//string save_path;
+				//for (int n = 0; n < ncams; n++) {
+				//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\Resimg" + to_string(n) + ".txt";
+				//	image_output.SetFilePath(save_path);
+				//	image_output.SetTotalNumber(Npixh * Npixw);
+				//	int* pixel_array = new int[Npixh * Npixw];
+				//	for (int i = 0; i < Npixh; i++)
+				//		for (int j = 0; j < Npixw; j++)
+				//			pixel_array[i * Npixw + j] = pixels_orig[n][i][j];
+				//	image_output.WriteData(pixel_array);
+				//}
+
 				
-				CircleIdentifier bp(pixels_orig[camID], Npixh, Npixw, 100);
-				bp.BubbleCenterAndSizeByCircle(3, 30, .85);
+				CircleIdentifier bp(pixels_orig[camID], Npixh, Npixw);
+				bp.BubbleCenterAndSizeByCircle(5, 30, .85);
 				iframes.push_back(bp.CreateFrame());
+				//bp.SaveCenter("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\center.txt");
+				//bp.SaveRadius("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\center_r.txt");
+
 				//p.SaveParticle2DCenter("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/frame100_" + to_string(camID) + ".txt");
 			}
 			catch (out_of_range& e) {
@@ -430,7 +447,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 							break;
 
 						// Creating the reprojected images (pixels_reproj) by reprojecting the 3D particles onto all cameras using Gaussian ellipse.
-						ReprojImage(pos3Dnew, OTFcalib, reproj, 4, IPRflag);
+						ReprojImage(pos3Dnew, OTFcalib, reproj, 1, IPRflag);
 //						ReprojImage(pos3Dnew, OTFcalib, reproj, 0.5);
 
 						// residual image
@@ -538,7 +555,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 			Rem(pos3Dnew, intensity3Dnew, mindist_3D);
 
 			// updating the reprojected image
-			ReprojImage(pos3Dnew, OTFcalib, reproj, 8, IPRflag);
+			ReprojImage(pos3Dnew, OTFcalib, reproj, 1.5, IPRflag);
 //			ReprojImage(pos3Dnew, OTFcalib, reproj, 1.5);
 
 			// updating the original image by removing correctly identified 3D particles
@@ -554,7 +571,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 			//NumDataIO<int> image_output;
 			//string save_path;
 			//for (int n = 0; n < ncams; n++) {
-			//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\022421\\Run1\\Debug_image\\Reprojimg" + to_string(n) +".txt";
+			//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\Reprojimg" + to_string(n) +".txt";
 			//	image_output.SetFilePath(save_path);
 			//	image_output.SetTotalNumber(Npixh * Npixw);
 			//	int* pixel_array = new int[Npixh * Npixw];
@@ -563,7 +580,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 			//			pixel_array[i * Npixw + j] = reproj[n][i][j];
 			//	image_output.WriteData(pixel_array);
 
-			//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\022421\\Run1\\Debug_image\\Resimg" + to_string(n) + ".txt";
+			//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\Orig" + to_string(n) + ".txt";
 			//	image_output.SetFilePath(save_path);
 			//	for (int i = 0; i < Npixh; i++)
 			//		for (int j = 0; j < Npixw; j++)
@@ -579,7 +596,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 
 
-void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, int size_factor, bool STB) {
+void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, double size_factor, bool STB) {
 	int size = psize;
 	// doubling the area of reprojection for STB
 	// also double for IPR for consistency with Shaking.
@@ -611,7 +628,7 @@ void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_repro
 
 			// *Reporjecting* //
 			// pixel range for each particle
-			size = (*pID).R() * size_factor; // set the size of projection to 4 times the radius of the particle.
+			size = (*pID).R() * size_factor * 4; // set the size of projection to 4 times the radius of the particle.
 			int xmin = max(1, (int)floor(particle2Dcenters[n].X() - size / 2));
 			int ymin = max(1, (int)floor(particle2Dcenters[n].Y() - size / 2));
 			int xmax = min(Npixw, (int)floor(particle2Dcenters[n].X() + size / 2));
@@ -621,7 +638,7 @@ void IPR::ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_repro
 				for (int y = ymin; y < ymax; y++) {
 					// reprojecting the particle using Gaussian ellipse
 					//int proj = round(PixelReproj(particle2Dcenters[n], otfParam, x, y));
-					int proj = round(PixelReproj(particle2Dcenters[n], (*pID).R() * size_factor / 4, x, y));
+					int proj = round(PixelReproj(particle2Dcenters[n], (*pID).R() * size_factor, x, y));
 					pixels_reproj[n][y][x] = max(pixels_reproj[n][y][x], proj);
 					// important comment: Not sure max is the right thing to use here for overlapping particles
 				}
@@ -692,9 +709,13 @@ double IPR::PixelReproj(Position& particle2Dcenter, vector <double>& otfParam, i
 }
 
 double IPR::PixelReproj(Position& particle2Dcenter, double radius, int x, int y) {
-	double xx = (double)x - particle2Dcenter.X();
-	double yy = (double)y - particle2Dcenter.Y();
-	double value = 255 * exp( - (pow(xx, 2) + pow(yy, 2)) / pow(radius,2));
+	//double xx = (double)x - particle2Dcenter.X();
+	//double yy = (double)y - particle2Dcenter.Y();
+	//double value = 255 * exp( - (pow(xx, 2) + pow(yy, 2)) / pow(radius,2));
+	double value = 0;
+	double dist = pow(pow((x - particle2Dcenter.X()), 2) + pow((y - particle2Dcenter.Y()), 2), 0.5);
+	if (dist < radius)
+		value = 255;
 	return(value);
 }
 

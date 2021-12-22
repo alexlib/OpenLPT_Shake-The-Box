@@ -3,13 +3,13 @@
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
 //
-// unique.h
+// sum.h
 //
-// Code generation for function 'unique'
+// Code generation for function 'sum'
 //
 
-#ifndef UNIQUE_H
-#define UNIQUE_H
+#ifndef SUM_H
+#define SUM_H
 
 // Include files
 #include "rtwtypes.h"
@@ -20,10 +20,9 @@
 
 // Function Declarations
 namespace coder {
-void unique_vector(const ::coder::array<float, 1U> &a,
-                   ::coder::array<float, 1U> &b);
+double sum(const ::coder::array<double, 1U> &x);
 
 }
 
 #endif
-// End of code generation (unique.h)
+// End of code generation (sum.h)

@@ -10,12 +10,12 @@
 
 
 // Include files
-#include "bwconncomp.h"
+#include "Bbwconncomp.h"
 #include "BubbleIdentifier.h"
-#include "regionprops.h"
+#include "Bregionprops.h"
 
 // Function Definitions
-void bwconncomp(const coder::array<bool, 2U>& varargin_1, double
+void Bbwconncomp(const coder::array<bool, 2U>& varargin_1, double
     * CC_Connectivity, double CC_ImageSize[2], double* CC_NumObjects,
     coder::array<double, 1U>& CC_RegionIndices, coder::array<int, 1U>
     & CC_RegionLengths)

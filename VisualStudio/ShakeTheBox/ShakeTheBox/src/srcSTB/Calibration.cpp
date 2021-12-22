@@ -543,22 +543,30 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 						}
 
 
-	// output all the triangulated positions.
-//	NumDataIO<double> pos_io;
-//	pos_io.SetFilePath("/home/tanshiyong/Documents/Data/SinglePhase/SD0125/Tracks/pos.txt");
-//	int num_pos = matchedPos.size();
-//	pos_io.SetTotalNumber(num_pos * 4); // pos + tri-error
-//	double* pos_e = new double[num_pos * 4];
-//
-//	for (int i = 0; i < num_pos; ++ i) {
-//		pos_e[i * 4] = matchedPos[i].X();
-//		pos_e[i * 4 + 1] = matchedPos[i].Y();
-//		pos_e[i * 4 + 2] = matchedPos[i].Z();
-//		pos_e[i * 4 + 3] = raydists[i];
-//	}
-//
-//	pos_io.WriteData((double*) pos_e);
-//	delete[] pos_e;
+	//// output all the triangulated positions.
+	//NumDataIO<double> pos_io;
+	//pos_io.SetFilePath("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\pos.txt");
+	//int num_pos = matchedPos.size();
+	//int n_com = (4 + rcams * 3);
+	//pos_io.SetTotalNumber(num_pos * n_com); // pos + tri-error
+	//double* pos_e = new double[num_pos * n_com];
+
+	//for (int i = 0; i < num_pos; ++ i) {
+	//	pos_e[i * n_com] = matchedPos[i].X();
+	//	pos_e[i * n_com + 1] = matchedPos[i].Y();
+	//	pos_e[i * n_com + 2] = matchedPos[i].Z();
+	//	pos_e[i * n_com + 3] = raydists[i];
+	//	for (int j = 0; j < rcams; ++j) {
+	//		Position pos2D_mm = PosTouse[i][j];
+	//		Position pos2D_pixel = cams[camID[j]].Distort(pos2D_mm);
+	//		pos_e[i * n_com + 4 + j * 3] = pos2D_pixel.X();
+	//		pos_e[i * n_com + 5 + j * 3] = pos2D_pixel.Y();
+	//		pos_e[i * n_com + 6 + j * 3] = pos2D_mm.R();
+	//	}
+	//}
+
+	//pos_io.WriteData((double*) pos_e);
+	//delete[] pos_e;
 
 	cout << "\tNumber of matches within tri-error = " << PosTouse.size() << endl;
 
@@ -1276,8 +1284,10 @@ void Calibration::ParticleFinder2to1(int camID, int rID, int camid1, int camid2,
 	 * Increase the threshold to eliminate the gap
 	 * Start:
 	 */
-	if (mindist > 1200 * config.factor) //1200 voxels
-		mindist = 1200 * config.factor;
+	//if (mindist > 1200 * config.factor) //1200 voxels
+	//	mindist = 1200 * config.factor;
+	if (mindist > mindist * 3) //1200 voxels
+		mindist = mindist * 3;
 	// End
 
 	int Npixw = cams[camID].Get_Npixw();
@@ -1347,10 +1357,12 @@ bool Calibration::ParticleCheck2to1(int camid0, int camid1, int camid2, Position
 	 * Increase the threshold to eliminate the gap
 	 * Start:
 	 */
-	double mindist = abs(mindist_1D / sin(PI*angle / 360));
-	if (mindist > 1200 * config.factor) //1200 voxels
-		mindist = 1200 * config.factor;
+	double mindist = abs(mindist_1D / sin(PI*angle / 180));
+	//if (mindist > 1200 * config.factor) //1200 voxels
+	//	mindist = 1200 * config.factor;
 	// END
+	if (mindist > mindist * 3) //1200 voxels
+		mindist = mindist * 3;
 
 	bool isMatch = false;
 	double dist = pow((x - (*P0).X()), 2) + pow((y - (*P0).Y()), 2);

@@ -51,7 +51,7 @@ public:
 	// End
 
 	// a fuction that takes all the 3D positions and gives reprojected images: (I_proj)
-	void ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, int size_factor, bool STB);
+	void ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, double size_factor, bool STB);
 
 	void ReprojImage(Frame matched3D, OTF& OTFcalib, deque<int**>& pixels_reproj, double projsize);
 

@@ -87,6 +87,7 @@ Shaking::Shaking(int Ncams, int ignoredCam, OTF& otfcalib, int NpixW, int NpixH,
 //		image_output.WriteData(pixel_array);
 //	}
 
+	pos3Dnew.Set_R(pos3Dold.R());
 	//updating the particle position and intensity
 	Pos();
 	// pixel range on the cameras around the updated particle centers
@@ -207,9 +208,9 @@ double Shaking::Res(Position posnew) {
 //				for (int y = pNew_range[id].ymin1; y < pNew_range[id].ymax1; y++) {
 					int X = x - pRangeOld[id].xmin2, Y = y - pRangeOld[id].ymin2;
 					if (Y < 2 * psize && Y >= 0 && X < 2 * psize && X >= 0) {
-						R = R + pow((pixels_PartAugRes[id][Y][X] - round(PartReproj(particle2Dnew[id], otfParamnew, x, y))), 2);
+						R = R + pow((pixels_PartAugRes[id][Y][X] - round(PartReproj(particle2Dnew[id], posnew.R(), x, y))), 2);
 					} else {
-						R = R + pow((pixels_Res[id][y][x] - round(PartReproj(particle2Dnew[id], otfParamnew, x, y))), 2);
+						R = R + pow((pixels_Res[id][y][x] - round(PartReproj(particle2Dnew[id], posnew.R(), x, y))), 2);
 					}
 					//pixels_partaugres[X * (pRangeOld[id].ymax2 - pRangeOld[id].ymin2) + Y] = pixels_PartAugRes[id][Y][X];
 					//part_proj[X * (pRangeOld[id].ymax2 - pRangeOld[id].ymin2) + Y] = round(PartReproj(particle2Dnew[id], otfParamnew, x, y));
@@ -267,9 +268,13 @@ double Shaking::PartReproj(Position particle2Dcenter, vector <double>& otfParam,
 }
 
 double Shaking::PartReproj(Position& particle2Dcenter, double radius, int x, int y) {
-	double xx = (double)x - particle2Dcenter.X();
-	double yy = (double)y - particle2Dcenter.Y();
-	double value = 255 * exp(-(pow(xx, 2) + pow(yy, 2)) / pow(radius, 2));
+	//double xx = (double)x - particle2Dcenter.X();
+	//double yy = (double)y - particle2Dcenter.Y();
+	//double value = 255 * exp(-(pow(xx, 2) + pow(yy, 2)) / pow(radius, 2));
+	double value = 0;
+	double dist = pow(pow((x - particle2Dcenter.X()), 2) + pow((y - particle2Dcenter.Y()), 2), 0.5);
+	if (dist < radius)
+		value = 255;
 	return(value);
 }
 
@@ -381,7 +386,7 @@ void Shaking::Int() {
 						num = num + pixels_Res[cam_ID[ID]][y][x];
 //						num_single = num_single + pixels_PartAugRes[ID][Y][X];
 					}
-					int pixel_proj = round(PartReproj(pos2Dnew[ID], otfparam[ID], x, y));
+					int pixel_proj = round(PartReproj(pos2Dnew[ID], pos3Dnew.R(), x, y));
 					denum = denum + pixel_proj;
 //					if (pixel_proj > 0 && pixels_PartAugRes[ID][Y][X] / pixel_proj < ratio) {
 //						ratio = pixels_PartAugRes[ID][Y][X] / pixel_proj;
@@ -431,7 +436,7 @@ void Shaking::Int() {
 				for (int y = ymin1; y < ymax1; y++) {
 					num = num + pixels_Res[ignoreCam][y][x];  // the residual for ignorecam is stored at the last.
 					vector<double> OTFparam = OTFcalib.OTFgrid(ignoreCam, pos3Dnew);
-					int pixel_proj = round(PartReproj(pos2D_reducedcam, OTFparam, x, y));
+					int pixel_proj = round(PartReproj(pos2D_reducedcam, pos3Dnew.R(), x, y));
 					denum = denum + pixel_proj;
 				}
 			}

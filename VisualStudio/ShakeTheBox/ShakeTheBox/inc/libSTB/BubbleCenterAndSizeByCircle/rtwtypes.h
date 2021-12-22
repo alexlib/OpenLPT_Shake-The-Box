@@ -1,18 +1,24 @@
-/*
- * Academic License - for use in teaching, academic research, and meeting
- * course requirements at degree granting institutions only.  Not for
- * government, commercial, or other organizational use.
- *
- * rtwtypes.h
- *
- * Code generation for function 'BubbleCenterAndSizeByCircle'
- *
- */
+//
+// Academic License - for use in teaching, academic research, and meeting
+// course requirements at degree granting institutions only.  Not for
+// government, commercial, or other organizational use.
+//
+// rtwtypes.h
+//
+// Code generation for function 'BubbleCenterAndSizeByCircle'
+//
 
 #ifndef RTWTYPES_H
 #define RTWTYPES_H
+
+// Include files
+
 #ifndef __cplusplus
 #include <stdbool.h>
+#endif
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 /*=======================================================================*
@@ -45,6 +51,7 @@ typedef double real64_T;
  * Generic type definitions: real_T, time_T, boolean_T, int_T, uint_T,       *
  *                           ulong_T, char_T and byte_T.                     *
  *===========================================================================*/
+
 typedef double real_T;
 typedef double time_T;
 typedef bool boolean_T;
@@ -107,6 +114,7 @@ typedef struct {
  *   int8_T, int16_T, int32_T     - signed 8, 16, or 32 bit integers     *
  *   uint8_T, uint16_T, uint32_T  - unsigned 8, 16, or 32 bit integers   *
  *=======================================================================*/
+
 static const int8_T MAX_int8_T = 127;
 static const int8_T MIN_int8_T = -128;
 static const uint8_T MAX_uint8_T = 255U;
@@ -116,20 +124,23 @@ static const int16_T MIN_int16_T = -32768;
 static const uint16_T MAX_uint16_T = 65535U;
 static const uint16_T MIN_uint16_T = 0;
 static const int32_T MAX_int32_T = 2147483647;
-static const int32_T MIN_int32_T = -2147483647-1;
+static const int32_T MIN_int32_T = -2147483647 - 1;
 static const uint32_T MAX_uint32_T = 0xFFFFFFFFU;
 static const uint32_T MIN_uint32_T = 0;
 
 /* Logical type definitions */
-#if (!defined(__cplusplus)) && (!defined(__true_false_are_keywords)) && (!defined(__bool_true_false_are_defined))
-#  ifndef false
-#   define false                       (0U)
-#  endif
-
-#  ifndef true
-#   define true                        (1U)
-#  endif
+#if (!defined(__cplusplus)) && (!defined(__true_false_are_keywords)) &&        \
+    (!defined(__bool_true_false_are_defined))
+#ifndef false
+#define false 0U
+#endif
+#ifndef true
+#define true 1U
 #endif
 #endif
 
-/* End of code generation (rtwtypes.h) */
+#ifdef __cplusplus
+}
+#endif
+#endif
+// End of code generation (rtwtypes.h)

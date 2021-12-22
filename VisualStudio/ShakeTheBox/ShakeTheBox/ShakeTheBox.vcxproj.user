@@ -9,7 +9,7 @@
     <LocalDebuggerCommandArguments>D:\1.Projects\2.Bubble-Particle\Data_analysis\Image_processing\022421\Run1\trackingconfig1.txt</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments>D:\1.Projects\2.Bubble-Particle\Data_analysis\Image_processing\022421\Run1\trackingconfig1.txt</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>D:\1.Projects\2.Bubble-Particle\Data_analysis\Data_processing\20211203\T2\S3\trackingconfig1.txt</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

@@ -9,8 +9,8 @@
 //
 
 
-#ifndef REGIONPROPS_H
-#define REGIONPROPS_H
+#ifndef BREGIONPROPS_H
+#define BREGIONPROPS_H
 
 // Include files
 #include <cstddef>
@@ -19,9 +19,9 @@
 #include "BubbleCenterAndSize_types.h"
 
 // Function Declarations
-extern void ComputeCentroid(const double imageSize[2], coder::array<b_struct_T,
+extern void BComputeCentroid(const double imageSize[2], coder::array<b_struct_T,
 	1U>& stats, struct_T* statsAlreadyComputed);
-extern void ComputeEllipseParams(const double imageSize[2], coder::array<
+extern void BComputeEllipseParams(const double imageSize[2], coder::array<
 	b_struct_T, 1U>& stats, struct_T* statsAlreadyComputed);
 
 #endif
