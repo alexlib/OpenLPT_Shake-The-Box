@@ -805,7 +805,7 @@ Frame Calibration::Stereomatch(const deque<Frame>& iframes, int framenumber, int
 				pos2D[id] = tmp;
 			}
 		}
-		Position worldposi(matchedPos[i].X(), matchedPos[i].Y(), matchedPos[i].Z(),
+		Position worldposi(matchedPos[i].X(), matchedPos[i].Y(), matchedPos[i].Z(), matchedPos[i].R(),
 							pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], 0);
 		good2Dpos.push_back(worldposi);
 		goodPos.push_back(matchedPos[i]);
@@ -1004,7 +1004,7 @@ pair<double,Position> Calibration::WorldPosition(deque<Position> ipos, int ignor
 			pos2D[i] = tmp;
 		}
 	}
-	Position worldposi(tmpi.X(), tmpi.Y(), tmpi.Z(), pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], dist);
+	Position worldposi(tmpi.X(), tmpi.Y(), tmpi.Z(), 0, pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], dist);
 
 	// get the average radius
 	double r = 0;
@@ -1277,7 +1277,7 @@ void Calibration::ParticleFinder2to1(int camID, int rID, int camid1, int camid2,
 //	double mindist = abs(mindist_1D / sin(PI*angle / 360));
 //	if (mindist > 1.5)
 //		mindist = 1.5;
-	double mindist = abs(mindist_1D / sin(PI*angle / 360));
+	double mindist = abs(mindist_1D / sin(PI * angle / 180 / 2));
 	/*
 	 * Modified by Shiyong Tan
 	 * Date: 6.7.18
@@ -1357,7 +1357,7 @@ bool Calibration::ParticleCheck2to1(int camid0, int camid1, int camid2, Position
 	 * Increase the threshold to eliminate the gap
 	 * Start:
 	 */
-	double mindist = abs(mindist_1D / sin(PI*angle / 180));
+	double mindist = abs(mindist_1D / sin(PI*angle / 180 / 2));
 	//if (mindist > 1200 * config.factor) //1200 voxels
 	//	mindist = 1200 * config.factor;
 	// END

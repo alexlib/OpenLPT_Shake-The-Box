@@ -854,8 +854,9 @@ void STB::Prediction(int frame, Frame& estPos, deque<double>& estInt) {
 				est[i] = LMSWienerPredictor(*tr, direction[i], 5);
 			}
 		}
-		Position estimate(est[0], est[1], est[2]);												// estimated position at nextFrame
-		estimate.Set_R((*tr).Last().R()); //Pass the radius to the prediction
+		Position estimate(est[0], est[1], est[2]);		// estimated position at nextFrame
+		
+		estimate.Set_R(tr->Last().R()); //Pass the radius to the prediction
 		if (boundary_check.Check(estimate)) { // if the estimate particle is inside the boundary
 			estInt.push_back(1);																	// setting initial intensity to 1
 			estPos.Add(estimate);
@@ -1074,7 +1075,19 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 //						pixel_array[i * Npixw + j] = pixels_res[n][i][j];
 //				image_output.WriteData(pixel_array);
 //			}
-
+			//NumDataIO<int> image_output;
+			//string save_path;
+			//for (int n = 0; n < ncams; n++) {
+			//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\Res" + to_string(n) + ".txt";
+			//	image_output.SetFilePath(save_path);
+			//	image_output.SetTotalNumber(Npixh * Npixw);
+			//	int* pixel_array = new int[Npixh * Npixw];
+			//	for (int i = 0; i < Npixh; i++)
+			//		for (int j = 0; j < Npixw; j++)
+			//			pixel_array[i * Npixw + j] = pixels_res[n][i][j];
+			//	image_output.WriteData(pixel_array);
+			//	delete[] pixel_array;
+			//}
 
 //			int index = 0;																	// correcting the estimated positions and their intensity by shaking
 //			double start = clock();
@@ -1104,7 +1117,7 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 
 		Rem(estimate, intensity, _ipr.mindist_3D);											// removing ambiguous particles and particles that did not find a match on the actual images
 
-		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 1.5, STBflag);						// updating the reprojected image
+		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 1.1, STBflag);						// updating the reprojected image
 																					// remove particle by projecting twice particle size
 //		_ipr.ReprojImage(estimate, OTFcalib, pixels_reproj, 1.5);
 
@@ -1115,7 +1128,31 @@ void STB::Shake(Frame& estimate, deque<double>& intensity) {
 					pixels_orig[n][i][j] = (residual < 0) ? 0 : residual;
 				}
 
+		/*NumDataIO<int> image_output;
+		string save_path;
+		for (int n = 0; n < ncams; n++) {
+			save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\Orig" + to_string(n) + ".txt";
+			image_output.SetFilePath(save_path);
+			image_output.SetTotalNumber(Npixh * Npixw);
+			int* pixel_array = new int[Npixh * Npixw];
+			for (int i = 0; i < Npixh; i++)
+				for (int j = 0; j < Npixw; j++)
+					pixel_array[i * Npixw + j] = pixels_orig[n][i][j];
+			image_output.WriteData(pixel_array);
+			delete[] pixel_array;
+		}
 
+		for (int n = 0; n < ncams; n++) {
+			save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\Reprojimg" + to_string(n) + ".txt";
+			image_output.SetFilePath(save_path);
+			image_output.SetTotalNumber(Npixh * Npixw);
+			int* pixel_array = new int[Npixh * Npixw];
+			for (int i = 0; i < Npixh; i++)
+				for (int j = 0; j < Npixw; j++)
+					pixel_array[i * Npixw + j] = pixels_reproj[n][i][j];
+			image_output.WriteData(pixel_array);
+			delete[] pixel_array;
+		}*/
 	}
 	
 }
@@ -1283,7 +1320,9 @@ Frame STB::IPRonResidual(Calibration& calib, Tiff2DFinder& t, deque<int**>& pixe
 	for (int outerloop = 0; outerloop < _ipr.it_outerloop; outerloop++) {						// identify the particle candidates from residual images 
 
 //		calib.Set_min2D(pow(1.1, outerloop)*mindist_2D);
-		calib.Set_min2D(mindist_2D + pix_length / 4 * outerloop);
+		//calib.Set_min2D(mindist_2D + pix_length / 4 * outerloop);
+		calib.Set_min2D(pow(1.1, outerloop) * mindist_2D);
+		calib.Set_min3D(pow(1.2, outerloop) * mindist_3D);
 
 		// running IPR on the residual images
 		Frame temp = _ipr.IPRLoop(calib, OTFcalib, camNums, ALL_CAMS, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res, outerloop);

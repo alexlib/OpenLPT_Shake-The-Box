@@ -450,7 +450,7 @@ CircleIdentifier::CircleIdentifier(int**& p, int rows, int cols) : img_p(p), row
           //    img[idx0 + img.size(0) * idx1] = true;
           //else
           //    img[idx0 + img.size(0) * idx1] = false;
-          img[idx0 + img.size(0) * idx1] = img_p[idx0][idx1];
+          img[idx0 + img.size(0) * idx1] = p[idx0][idx1];
       }
   }
 }

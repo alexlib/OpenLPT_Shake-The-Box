@@ -168,10 +168,10 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 				//bp.BubbleCenterAndSize();
 				//iframes.push_back(bp.CreateFrame());
 				CircleIdentifier bp(pixels_orig[camID], Npixh, Npixw);
-				bp.BubbleCenterAndSizeByCircle(5, 30, .85);
+				bp.BubbleCenterAndSizeByCircle(3, 30, .9);
 				iframes.push_back(bp.CreateFrame());
-				//bp.SaveCenter(imgNames[camID][frame - 1]);
-				//bp.SaveRadius(imgNames[camID][frame - 1]);
+				bp.SaveCenter(imgNames[camID][frame - 1]);
+				bp.SaveRadius(imgNames[camID][frame - 1]);
 				//if (debug_mode == SKIP_IPR_2D_POSITION && frame - 1 < debug_frame_number) { // read 2D position directly
 				//	iframes.push_back(p.ReadParticle2DCenter(imgNames[camID][frame - 1]));
 				//	if (error == NO_FILE) {
@@ -222,8 +222,9 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 		start = clock();
 
 		// increasing the 2D threshold by 10% in each iteration
-//		calib.Set_min2D(pow(1.1, loopOuter)*mindist_2D);
-		calib.Set_min2D(mindist_2D + pix_length / 4 * loopOuter);
+		calib.Set_min2D(pow(1.1, loopOuter) * mindist_2D);
+		calib.Set_min3D(pow(1.2, loopOuter) * mindist_3D);
+		//calib.Set_min2D(mindist_2D + pix_length / 4 * loopOuter);
 		
 		// update pos3Dnew with 3D particles from IPR of current outerloop
 		Frame pos3Dnew = IPRLoop(calib, OTFcalib, camNums, ALL_CAMS, t.Get_colors(), pixels_orig, pixels_reproj, pixels_res, loopOuter);
@@ -334,7 +335,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 				//NumDataIO<int> image_output;
 				//string save_path;
 				//for (int n = 0; n < ncams; n++) {
-				//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\Resimg" + to_string(n) + ".txt";
+				//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\Orig" + to_string(n) + ".txt";
 				//	image_output.SetFilePath(save_path);
 				//	image_output.SetTotalNumber(Npixh * Npixw);
 				//	int* pixel_array = new int[Npixh * Npixw];
@@ -345,11 +346,11 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 				//}
 
 				
-				CircleIdentifier bp(pixels_orig[camID], Npixh, Npixw);
-				bp.BubbleCenterAndSizeByCircle(5, 30, .85);
+				CircleIdentifier bp(orig[camID], Npixh, Npixw);
+				bp.BubbleCenterAndSizeByCircle(3, 30, .9);
 				iframes.push_back(bp.CreateFrame());
-				//bp.SaveCenter("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\center.txt");
-				//bp.SaveRadius("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\center_r.txt");
+				bp.SaveCenter("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\center" + to_string(camID) + ".txt");
+				bp.SaveRadius("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\center" + to_string(camID) + ".txt");
 
 				//p.SaveParticle2DCenter("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/frame100_" + to_string(camID) + ".txt");
 			}
@@ -545,6 +546,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 					}
 		}
 
+		//cout << "Num of shaked particles:" << pos3Dnew.NumParticles() << endl;
 		if (pos3Dnew.NumParticles() != 0) {
 //			cout <<  "Number of particles after shaking:" <<pos3Dnew.NumParticles()<<endl;
 			// save the 3D position, 3D intensity and their correspoding 2D positions
@@ -555,7 +557,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 			Rem(pos3Dnew, intensity3Dnew, mindist_3D);
 
 			// updating the reprojected image
-			ReprojImage(pos3Dnew, OTFcalib, reproj, 1.5, IPRflag);
+			ReprojImage(pos3Dnew, OTFcalib, reproj, 1.1, IPRflag);
 //			ReprojImage(pos3Dnew, OTFcalib, reproj, 1.5);
 
 			// updating the original image by removing correctly identified 3D particles
@@ -571,7 +573,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 			//NumDataIO<int> image_output;
 			//string save_path;
 			//for (int n = 0; n < ncams; n++) {
-			//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\Reprojimg" + to_string(n) +".txt";
+			//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\Reprojimg" + to_string(n) +".txt";
 			//	image_output.SetFilePath(save_path);
 			//	image_output.SetTotalNumber(Npixh * Npixw);
 			//	int* pixel_array = new int[Npixh * Npixw];
@@ -580,7 +582,7 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 			//			pixel_array[i * Npixw + j] = reproj[n][i][j];
 			//	image_output.WriteData(pixel_array);
 
-			//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug_img\\Orig" + to_string(n) + ".txt";
+			//	save_path = "D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\Orig" + to_string(n) + ".txt";
 			//	image_output.SetFilePath(save_path);
 			//	for (int i = 0; i < Npixh; i++)
 			//		for (int j = 0; j < Npixw; j++)
@@ -741,6 +743,7 @@ pair<int,int> IPR::Rem(Frame& pos3D, deque<double>& int3D, double mindist_3D) {
 	for (int i = 0; i < int3D.size(); i++) {
 		if (int3D[i] > 0) {
 			avgInt = avgInt + int3D[i];
+			//cout << int3D[i] << endl;
 		}
 	}
 	avgInt = avgInt / int3D.size();
@@ -781,7 +784,7 @@ void IPR::FullData(Position& pos, double intensity, int Cams, int ignoreCam) {
 			pos2D[camID] = tmp;
 		}
 	}
-	Position temp(pos.X(), pos.Y(), pos.Z(), pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], intensity);
+	Position temp(pos.X(), pos.Y(), pos.Z(), pos.R(), pos2D[0][0], pos2D[0][1], pos2D[1][0], pos2D[1][1], pos2D[2][0], pos2D[2][1], pos2D[3][0], pos2D[3][1], intensity);
 	pos = temp;
 }
 
@@ -1019,7 +1022,7 @@ void IPR::Position2Array(deque<Position> pos, double* array) {
 deque<Position> IPR::Array2Position(int num_particle, double array[][12]) {
 	deque<Position> pos;
 	for(int i = 0; i < num_particle; i++) {
-		Position point(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5],  array[i][6],
+		Position point(array[i][0], array[i][1], array[i][2], 0, array[i][3], array[i][4], array[i][5],  array[i][6],
 				array[i][7], array[i][8], array[i][9], array[i][10], array[i][11]);
 		pos.push_back(point);
 	}
@@ -1029,7 +1032,7 @@ deque<Position> IPR::Array2Position(int num_particle, double array[][12]) {
 deque<Position> IPR::Array2Position(int num_particle, double* array) {
 	deque<Position> pos;
 	for (int i = 0; i < num_particle; i++) {
-		Position point(array[i * num_particle +  0], array[i * num_particle + 1], array[i * num_particle + 2], 
+		Position point(array[i * num_particle +  0], array[i * num_particle + 1], array[i * num_particle + 2], 0,
 			array[i * num_particle + 3], array[i * num_particle + 4], 
 			array[i * num_particle + 5], array[i * num_particle + 6],
 			array[i * num_particle + 7], array[i * num_particle + 8], 

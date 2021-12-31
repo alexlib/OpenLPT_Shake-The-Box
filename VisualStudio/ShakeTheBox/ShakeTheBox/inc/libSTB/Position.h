@@ -23,7 +23,7 @@ public:
   // constructor: initializes the coordinates
   Position(double NewX, double NewY, double NewZ);
   Position(double NewX, double NewY, double NewZ, double r);
-  Position(double NewX, double NewY, double NewZ, double Newx1, double Newy1, double Newx2, double Newy2, double Newx3, double Newy3, double Newx4, double Newy4, double Newinfo);
+  Position(double NewX, double NewY, double NewZ, double r, double Newx1, double Newy1, double Newx2, double Newy2, double Newx3, double Newy3, double Newx4, double Newy4, double Newinfo);
   // copy-constructor
   Position(const Position& p);
   // destructor: nothing to do
@@ -146,8 +146,8 @@ inline Position::Position(double NewX, double NewY, double NewZ, double r) :
 	x(NewX), y(NewY), z(NewZ), tracked(false), fake(false), radius(r)
 {}
 
-inline Position::Position(double NewX, double NewY, double NewZ, double Newx1, double Newy1, double Newx2, double Newy2, double Newx3, double Newy3, double Newx4, double Newy4, double Newinfo) 
-: x(NewX), y(NewY), z(NewZ), x1(Newx1), y1(Newy1), x2(Newx2), y2(Newy2), x3(Newx3), y3(Newy3), x4(Newx4), y4(Newy4), info(Newinfo), tracked(false), fake(false)
+inline Position::Position(double NewX, double NewY, double NewZ, double r, double Newx1, double Newy1, double Newx2, double Newy2, double Newx3, double Newy3, double Newx4, double Newy4, double Newinfo)
+: x(NewX), y(NewY), z(NewZ), radius(r), x1(Newx1), y1(Newy1), x2(Newx2), y2(Newy2), x3(Newx3), y3(Newy3), x4(Newx4), y4(Newy4), info(Newinfo), tracked(false), fake(false)
 {}
 
 inline Position::Position(const Position& p)
@@ -290,6 +290,7 @@ inline Position& Position::operator=(const Position& p)
   x4 = p.x4;
   y4 = p.y4;
   info = p.info;
+  radius = p.radius;
   tracked = p.tracked;
   fake = p.fake;
 

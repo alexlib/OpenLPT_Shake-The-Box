@@ -120,6 +120,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\inc\libtiff;$(ProjectDir)\inc\libSTB;$(ProjectDir)\inc\libMath;$(ProjectDir)\inc\DataIO;$(ProjectDir)\inc\libSTB\BubbleCenterAndSize;$(ProjectDir)\inc\libSTB\BubbleCenterAndSizeByCircle</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
