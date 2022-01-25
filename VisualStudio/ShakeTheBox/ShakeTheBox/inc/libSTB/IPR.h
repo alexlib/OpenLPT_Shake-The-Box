@@ -118,7 +118,7 @@ protected:
 	// customizable input parameteres
 	int it_outerloop, it_innerloop, it_reducedCam;
 	int threshold, pixelMax;
-	int psize;
+	int psize = 0;
 	double m_rmax = 0; // in pixel unit
 	double m_rmin = 0;
 	
