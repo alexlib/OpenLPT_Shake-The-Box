@@ -64,7 +64,8 @@ IPR::IPR(string& fname, int ncams) : ncams(ncams)
 	parsed >> calibfile;												// taking the path to calib file
 	parsed >> tiffaddress;												// taking the path to tiff files
 	parsed >> otfFile;													// taking the path to .mat / .txt file with OTF parameters
-	parsed >> psize;													// particle size in x or y direction
+	parsed >> m_rmin;													// minimum particle size
+	parsed >> m_rmax;													// maximum particle size
 
 	parsed >> it_outerloop;												// # of outer and innerloop iterations
 	parsed >> it_innerloop;
@@ -168,10 +169,10 @@ Frame IPR::FindPos3D(deque< deque<string> > imgNames, int frameNumber)  {
 				//bp.BubbleCenterAndSize();
 				//iframes.push_back(bp.CreateFrame());
 				CircleIdentifier bp(pixels_orig[camID], Npixh, Npixw);
-				bp.BubbleCenterAndSizeByCircle(3, 30, .9);
+				bp.BubbleCenterAndSizeByCircle(m_rmin, m_rmax, .9);
 				iframes.push_back(bp.CreateFrame());
-				bp.SaveCenter(imgNames[camID][frame - 1]);
-				bp.SaveRadius(imgNames[camID][frame - 1]);
+				//bp.SaveCenter(imgNames[camID][frame - 1]);
+				//bp.SaveRadius(imgNames[camID][frame - 1]);
 				//if (debug_mode == SKIP_IPR_2D_POSITION && frame - 1 < debug_frame_number) { // read 2D position directly
 				//	iframes.push_back(p.ReadParticle2DCenter(imgNames[camID][frame - 1]));
 				//	if (error == NO_FILE) {
@@ -347,10 +348,10 @@ Frame IPR::IPRLoop(Calibration& calib, OTF& OTFcalib,  deque<int> camNums, int i
 
 				
 				CircleIdentifier bp(orig[camID], Npixh, Npixw);
-				bp.BubbleCenterAndSizeByCircle(3, 30, .9);
+				bp.BubbleCenterAndSizeByCircle(m_rmin, m_rmax, .9);
 				iframes.push_back(bp.CreateFrame());
-				bp.SaveCenter("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\center" + to_string(camID) + ".txt");
-				bp.SaveRadius("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\center" + to_string(camID) + ".txt");
+				//bp.SaveCenter("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\center" + to_string(camID) + ".txt");
+				//bp.SaveRadius("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Image_processing\\Synthetic3\\Debug\\center" + to_string(camID) + ".txt");
 
 				//p.SaveParticle2DCenter("/home/tanshiyong/Documents/Data/Single-Phase/11.03.17/Run1/frame100_" + to_string(camID) + ".txt");
 			}

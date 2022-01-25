@@ -119,6 +119,8 @@ protected:
 	int it_outerloop, it_innerloop, it_reducedCam;
 	int threshold, pixelMax;
 	int psize;
+	double m_rmax = 0; // in pixel unit
+	double m_rmin = 0;
 	
 	// OTF parameters
 	//OTF OTFcalib;

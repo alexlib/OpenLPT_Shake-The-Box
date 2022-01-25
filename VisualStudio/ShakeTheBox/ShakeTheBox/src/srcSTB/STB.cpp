@@ -302,18 +302,18 @@ void STB::ConvergencePhase() {
 //				delete[] pixel_vector;
 //			}
 
-//			NumDataIO<int> data_io;
-//			for (int n = 0; n < ncams; n++) {
-//				data_io.SetFilePath("/home/tanshiyong/Documents/Data/SinglePhase/SD78500//Residual_image_code/cam" + to_string(n+1) + "/frame" + to_string(nextFrame) + ".txt");
-//				int* pixel_vector = new int[Npixh * Npixw];
-//				for (int i = 0; i < Npixh; i++)
-//					for (int j = 0; j < Npixw; j++) {
-//						pixel_vector[i * Npixw + j] = pixels_orig[n][i][j];
-//					}
-//				data_io.SetTotalNumber(Npixw * Npixh);
-//				data_io.WriteData(pixel_vector);
-//				delete[] pixel_vector;
-//			}
+			//NumDataIO<int> data_io;
+			//for (int n = 0; n < ncams; n++) {
+			//	data_io.SetFilePath("D:\\1.Projects\\2.Bubble-Particle\\Data_analysis\\Data_processing\\20211203\\T2\\S3\\Debug\\Orig" + to_string(n) + ".txt");
+			//	int* pixel_vector = new int[Npixh * Npixw];
+			//	for (int i = 0; i < Npixh; i++)
+			//		for (int j = 0; j < Npixw; j++) {
+			//			pixel_vector[i * Npixw + j] = pixels_orig[n][i][j];
+			//		}
+			//	data_io.SetTotalNumber(Npixw * Npixh);
+			//	data_io.WriteData(pixel_vector);
+			//	delete[] pixel_vector;
+			//}
 
 
 	// IPR ON RESIDUALS
@@ -589,7 +589,9 @@ void STB::ConvergencePhase() {
 			cout << "\t\tNo. of active Short tracks:	" << c1 << " + " << a_as << " - (" << s_as1 << " + " << s_as2 << " + " << s_as3 << " + " << s_as4 << ") = " << activeShortTracks.size() << endl;
 			cout << "\t\tNo. of active Long tracks:	" << c2 << " + " << a_al << " - " << s_al << " = " << activeLongTracks.size() << endl;
 			//cout << r1 << "+" << r2 << "+" << r3 << endl;
-			cout << "\t\ttracks removed due to Out of boundary, repeating, ghost particle, few camera capture and failing linear check :" << r_obl << "+" << r_ct << "+" << r_int << "+" << r_2cam << "+" << r_lf << endl;
+			cout << "\t\t\ttracks removed due to Out of boundary:" << r_obl << endl 
+				<< "\t\t\trepeating:" << r_ct << endl << "\t\t\tghost particle: " << r_int << endl 
+				<<" \t\t\tfew camera capture:" << r_2cam << endl << "\t\t\tand failing linear check : "  << r_lf << endl;
 			cout << "\t\tNo. of exited tracks:		 = " << exitTracks.size() << endl;
 //			cout << "\t\tNo. of inactive tracks:		" << c3 << " + " << a_is << " = " << inactiveTracks.size() << endl;
 			cout << "\t\tNo. of inactive Long tracks:	" << c4 << " + " << a_il << " = " << inactiveLongTracks.size() << endl;
@@ -610,17 +612,25 @@ void STB::ConvergencePhase() {
 					// remove previous files except anyone that is multiple of 500 for active long track and exit track
 					std::remove((address + "ActiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
 					std::remove( (address + "ActiveShortTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+					std::remove((address + "RadiusActiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+					std::remove((address + "RadiusActiveShortTracks" + to_string(nextFrame - 100) + ".txt").c_str());
 					// remove previous files except anyone that is multiple of 500 for active long track and exit track
 					if ((nextFrame - 100) % 500 != 0) {
 						std::remove( (address + "InactiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
 						std::remove( (address + "ExitTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+						std::remove((address + "RadiusInactiveLongTracks" + to_string(nextFrame - 100) + ".txt").c_str());
+						std::remove((address + "RadiusExitTracks" + to_string(nextFrame - 100) + ".txt").c_str());
 					}
 				} else if (nextFrame == endFrame && nextFrame % 100 != 0) {
 					std::remove((address + "ActiveLongTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
 					std::remove( (address + "ActiveShortTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
+					std::remove((address + "RadiusActiveLongTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
+					std::remove((address + "RadiusActiveShortTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
 					if (((int)(nextFrame / 100) * 100) % 500 != 0) {
 						std::remove( (address + "InactiveLongTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
 						std::remove( (address + "ExitTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
+						std::remove((address + "RadiusInactiveLongTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
+						std::remove((address + "RadiusExitTracks" + to_string((int)(nextFrame / 100) * 100) + ".txt").c_str());
 					}
 				}
 
@@ -1891,6 +1901,17 @@ void STB::MatTracksSave(string address, string s, bool is_back_STB) {
 	if (is_back_STB) {
 		SaveTrackToTXT(bufferTracks, address + "BufferTracks" + s);
 	}
+
+	X1 = "RadiusActiveLongTracks" + s, X2 = "RadiusActiveShortTracks" + s, X3 = "RadiusInactiveTracks" + s, X4 = "RadiusExitTracks" + s, X5 = "RadiusInactiveLongTracks" + s;
+	SaveRadiusToTXT(activeLongTracks, address + X1);
+	SaveRadiusToTXT(activeShortTracks, address + X2);
+	//	SaveTrackToTXT(inactiveTracks, address + X3);  // No longer save inactiveTracks which are useless
+	SaveRadiusToTXT(exitTracks, address + X4);
+	SaveRadiusToTXT(inactiveLongTracks, address + X5);
+	if (is_back_STB) {
+		SaveRadiusToTXT(bufferTracks, address + "RadiusBufferTracks" + s);
+	}
+	
 // End
 }
 
@@ -2092,6 +2113,25 @@ void STB::SaveTrackToTXT(deque<Track> tracks, string address) {
 	data_io.WriteData((double*) track_data);
 
 	delete[] track_data;
+}
+
+void STB::SaveRadiusToTXT(deque<Track> tracks, string address) {
+	size_t num_track = tracks.size(); // number of tracks
+	unsigned int total_len = 0; // Total length of all the tracks
+	double* radius_data = new double[num_track * 2];
+
+	unsigned int index = 0;
+	for (unsigned int i = 0; i < num_track; ++i) {
+		radius_data[i * 2] = i;
+		radius_data[i * 2 + 1] = tracks.at(i).First().R();
+	}
+
+	NumDataIO<double> data_io;
+	data_io.SetFilePath(address + ".txt");
+	data_io.SetTotalNumber(num_track * 2);
+	data_io.WriteData((double*)radius_data);
+
+	delete[] radius_data;
 }
 
 //###################### TEMPORARY FUNTIONS FOR TESTING ###############################

@@ -100,6 +100,7 @@ public:
 	void SaveTrackToTXT(deque<Track> tracks, string address);
 	void LoadAllTracks(string address, string frame_number, bool is_back_STB);
 	void LoadTrackFromTXT(string path, TrackType trackType);
+	void SaveRadiusToTXT(deque<Track> tracks, string address);
 
 	//###################### TEMPORARY FUNTIONS FOR TESTING ###############################
 

@@ -353,7 +353,8 @@ void Shaking::Int() {
 //					peakIntensity[id] = max(peakIntensity[id], PartReproj(pos2Dnew[id], otfparam[id], x, y));
 //					if (x < 1 || x > Npixw || y < 1 || y > Npixh) continue;
 					if (Y < 2 * psize && Y >= 0 && X < 2 * psize && X >= 0) {
-						peakIntensity[id] = max(peakIntensity[id], (double)pixels_PartAugRes[id][Y][X]);
+						//peakIntensity[id] = max(peakIntensity[id], (double)pixels_PartAugRes[id][Y][X]);
+						peakIntensity[id] = peakIntensity[id] + (double)pixels_PartAugRes[id][Y][X];
 					}
 				}
 			}
@@ -367,7 +368,7 @@ void Shaking::Int() {
 //	int nonzero_proj = 0;
 	for (int ID = 0; ID < rcams; ID++) {
 //		int num_single = 0;
-		//if (ID != ignore) { //REMOVE ignore for bubble tracking
+		if (ID != ignore) { 
 //			int xmin = max(pRangeOld[ID].xmin1, pRangeNew[ID].xmin1), xmax = min(pRangeNew[ID].xmax1, pRangeOld[ID].xmax1);
 //			int ymin = max(pRangeOld[ID].ymin1, pRangeNew[ID].ymin1), ymax = min(pRangeNew[ID].ymax1, pRangeOld[ID].ymax1);
 			int xmin = pRangeNew[ID].xmin1, xmax = pRangeNew[ID].xmax1;
@@ -409,7 +410,7 @@ void Shaking::Int() {
 //					ratio = r;
 //				}
 //			}
-		//}
+		}
 	}
 
 
@@ -455,9 +456,9 @@ void Shaking::Int() {
 		int3D = int3D;
 	}
 
-	if (int3D > 1) {
-		int3D = 1; // overlarge intensity may be caused by the overlapping
-	}
+	//if (int3D > 1) {
+	//	int3D = 1; // overlarge intensity may be caused by the overlapping
+	//}
 //	if (nonzero_proj < 2) {  // change to 2 because one camera with highest intensity has been ignore.
 //		int3D = 0;  // indicate this particle disappears in at least two cameras.
 //	}
