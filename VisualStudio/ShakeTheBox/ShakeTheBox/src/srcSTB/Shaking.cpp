@@ -366,6 +366,7 @@ void Shaking::Int() {
 	double ignore = IndexofLargestElement(peakIntensity, rcams); // TODO: check whether it works for bubble tracking
 //	double ratio = 255;
 //	int nonzero_proj = 0;
+	vector<double> ratio_int;
 	for (int ID = 0; ID < rcams; ID++) {
 //		int num_single = 0;
 		if (ID != ignore) { 
@@ -394,6 +395,7 @@ void Shaking::Int() {
 //					}
 				}
 			}
+			ratio_int.push_back(num / denum);
 //			if (num_single > 30) nonzero_proj ++;
 //			int centerx = round((pRangeNew[ID].xmin1 + pRangeNew[ID].xmax1) / 2);
 //			int centery = round((pRangeNew[ID].ymin1 + pRangeNew[ID].ymax1) / 2);
@@ -442,6 +444,7 @@ void Shaking::Int() {
 				}
 			}
 		}
+		ratio_int.push_back(num / denum);
 
 	}
 
@@ -449,12 +452,18 @@ void Shaking::Int() {
 	delete[] cam_ID;
 	//cout << ignore << "," << num << "," << denum << endl;
 //	if (int3D == 0) int3D = 1;
-	if (denum > 0) {
-		int3D = int3D * sqrt(abs(num / denum));// * ratio;
-	}
-	else {
-		int3D = int3D;
-	}
+	//if (denum > 0) {
+		//int3D = int3D * sqrt(abs(num / denum));// * ratio;
+		double ratio_total = 1;
+		for (int i = 0; i < ratio_int.size(); i++) {
+			ratio_total = ratio_total * ratio_int[i];
+		}
+		double ratio = pow(ratio_total, (double) 1 / ratio_int.size());
+		int3D = int3D * ratio;
+	//}
+	//else {
+	//	int3D = int3D;
+	//}
 
 	//if (int3D > 1) {
 	//	int3D = 1; // overlarge intensity may be caused by the overlapping

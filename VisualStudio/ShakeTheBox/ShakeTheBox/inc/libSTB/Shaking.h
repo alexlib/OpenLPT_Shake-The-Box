@@ -66,8 +66,8 @@ public:
 	int IndexofSmallestElement(deque<double> array, int size);
 	int IndexofLargestElement(double *array, int size);
 
-	Position& Get_posnew() { return pos3Dnew; };
-	double Get_int();
+	Position& Get_posnew() { return Shaking::pos3Dnew; };
+	double Get_int() { return Shaking::int3D; };
 
 //private:
 	//################################## VARIABLES ##########################################
@@ -102,8 +102,8 @@ public:
 //	return Shaking::pos3Dnew;
 //}
 
-inline double Shaking::Get_int() {
-	return int3D;
-}
+//inline double Shaking::Get_int() {
+//	return int3D;
+//}
 
 #endif
